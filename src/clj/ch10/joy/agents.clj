@@ -1,4 +1,5 @@
 (ns joy.agents
+  "section 10.3"
   (:use [joy.mutation :only [dothreads!]]))
 
 (def log-agent (agent 0))

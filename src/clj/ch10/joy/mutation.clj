@@ -1,5 +1,5 @@
 (ns joy.mutation
-  "Common utilities for chapter 11")
+  "Common utilities for chapter 10")
 
 (import '(java.util.concurrent Executors)) 
 
