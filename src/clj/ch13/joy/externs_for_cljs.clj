@@ -45,10 +45,23 @@
 (defn flatten-ast [ast]
   (mapcat #(tree-seq :children :children %) ast))
 
+(def flat-ast (flatten-ast (file-ast "src/cljs/joy/music.cljs")))
 
+(comment (count flat-ast))
 
+(defn get-interop-used
+  "Return a set of symbols representing the method and field names
+   used in interop forms in the given sequence of AST nodes."
+  [flat-ast]
+  (set (keep #(some % [:method :field]) flat-ast)))
 
+(comment (get-interop-used flat-ast))
 
+(defn externs-for-interop [syms]
+  (apply str
+    "var DummyClass={};\n"
+    (map #(str "DummyClass." % "=function(){};\n")
+      syms)))
 
 
 

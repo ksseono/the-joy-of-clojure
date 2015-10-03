@@ -1,4 +1,5 @@
-(ns joy.music)
+(ns joy.music
+  (:require-macros [joy.macro-tunes :as mtunes]))
 
 (defn soft-attack
   "Return a gain node that goes from silent at time <delay> up to
@@ -98,6 +99,8 @@
       [[26 4] [25 2] [24 4] [20 2] [24 3] [23 1] [22 2] [10 4]
        [19 2] [16 10]])))
 
-(defn ^:export go []
-  (play! woo (magical-theme)))
+;; (defn ^:export go []
+;;   (play! woo (magical-theme)))
 
+(defn ^:export go []
+  (play! woo (mtunes/magical-theme-macro)))
