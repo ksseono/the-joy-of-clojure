@@ -7,9 +7,10 @@
                  [org.clojure/clojurescript "1.7.48"]
                  [org.clojure/core.unify "0.5.6"]
                  [org.clojure/core.logic "0.8.10"]
-                 [com.cemerick/piggieback "0.2.1"]]
+                 [com.cemerick/piggieback "0.2.1"]
+                 [criterium "0.4.3"]]
   :source-paths ["src/clj/ch10" "src/clj/ch11" "src/clj/ch12" "src/clj/ch13"
-                 "src/clj/ch14"]
+                 "src/clj/ch14" "src/clj/ch15"]
   :plugins [[lein-cljsbuild "1.1.0"]]
   :cljsbuild
   {:builds
