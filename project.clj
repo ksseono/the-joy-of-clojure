@@ -10,8 +10,14 @@
                  [com.cemerick/piggieback "0.2.1"]
                  [criterium "0.4.3"]]
   :source-paths ["src/clj/ch08"
-                 "src/clj/ch10" "src/clj/ch11" "src/clj/ch12" "src/clj/ch13"
-                 "src/clj/ch14" "src/clj/ch15" "src/clj/ch16"]
+                 "src/clj/ch10"
+                 "src/clj/ch11"
+                 "src/clj/ch12"
+                 "src/clj/ch13"
+                 "src/clj/ch14"
+                 "src/clj/ch15"
+                 "src/clj/ch16"
+                 "src/clj/ch17"]
   :plugins [[lein-cljsbuild "1.1.0"]]
   :cljsbuild
   {:builds
