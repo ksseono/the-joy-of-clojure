@@ -9,11 +9,10 @@
                  [org.clojure/core.logic "0.8.10"]
                  [com.cemerick/piggieback "0.2.1"]
                  [criterium "0.4.3"]]
-  :source-paths ["src/clj/ch01" "src/clj/ch02" "src/clj/ch03" "src/clj/ch04"
-                 "src/clj/ch05" "src/clj/ch06" "src/clj/ch07" "src/clj/ch08"
-                 "src/clj/ch09" "src/clj/ch10" "src/clj/ch11" "src/clj/ch12"
-                 "src/clj/ch13" "src/clj/ch14" "src/clj/ch15" "src/clj/ch16"
-                 "src/clj/ch17"]
+  :source-paths ["src/clj/ch01" "src/clj/ch03" "src/clj/ch04" "src/clj/ch05"
+                 "src/clj/ch06" "src/clj/ch07" "src/clj/ch08" "src/clj/ch09"
+                 "src/clj/ch10" "src/clj/ch11" "src/clj/ch12" "src/clj/ch13"
+                 "src/clj/ch14" "src/clj/ch15" "src/clj/ch16" "src/clj/ch17"]
   :plugins [[lein-cljsbuild "1.1.0"]]
   :cljsbuild
   {:builds
