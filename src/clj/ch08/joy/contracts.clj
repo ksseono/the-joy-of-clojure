@@ -33,21 +33,44 @@
 ;;
 ;; Listing 8.3
 ;;
-(def doubler
-  (contract c
+(def doubler-contract
+  (contract doubler
     [x]
     (require (pos? x))
     (ensure (= (* 2 x) %))))
 
-(def doubling
-  (contract c [x]
-    (require (number? x))
-    (ensure (= % (* 2 x)))))
-
-(def checked-doubler (partial doubling doubler))
+(def times2 (partial doubler-contract #(* 2 %)))
+(def times3 (partial doubler-contract #(* 3 %)))
 
 (comment
-  (checked-doubler "")
-  ;; AssertionError Assert failed: (number? x)
+  (times2 9)
+  ;;=> 18
+
+  (times3 9)
+  ;; AssertionError Assert failed: (= (* 2 x) %)
   )
 
+;;
+;; Listing 8.4
+;;
+(def doubler-contract
+  (contract doubler
+            [x]
+            (require (pos? x))
+            (ensure (= (* 2 x) %))
+            [x y]
+            (require (pos? x)
+                     (pos? y))
+            (ensure
+             (= (* 2 (+ x y)) %))))
+
+(comment
+  ((partial doubler-contract #(* 2 (+ %1 %2))) 2 3)
+  ;;=> 10
+
+  ((partial doubler-contract #(+ %1 %1 %2 %2)) 2 3)
+  ;;=> 10
+
+  ((partial doubler-contract #(* 3 (+ %1 %2))) 2 3)
+  ;; AssertionError Assert failed: (= (* 2 (+ x y)) %)
+  )
