@@ -1,5 +1,4 @@
 (ns joy.locks
-  "section 10.5"
   (:refer-clojure :exclude [agent aset count seq])
   (:require [clojure.core :as clj])
   (:use [joy.mutation :only (dothreads!)]))
@@ -27,13 +26,18 @@
               :threads 100))
 
 (def D (make-dumb-array Integer/TYPE 8))
-(pummel D)
-(seq D)
 
+(comment
+  (pummel D)
+  ;;=> nil
 
-;
-;Listing 10.8
-;
+  (seq D)
+  ;;=> (78 79 80 80 79 78 77 78)
+ )
+
+;;
+;;Listing 10.8
+;;
 (defn make-safe-array [t sz]
   (let [a (make-array t sz)]
     (reify
@@ -51,16 +55,22 @@
 
 
 (def A (make-safe-array Integer/TYPE 8))
-(pummel A)
-(seq A)
+
+(comment
+  (pummel A)
+  ;;=> nil
+  
+  (seq A)
+  ;;=> (100 100 100 100 100 100 100 100)
+  )
 
 
-;
-;Listing 10.9
-;
 (defn lock-i [target-index num-locks]
   (mod target-index num-locks))
 
+;;
+;;Listing 10.9
+;;
 (import 'java.util.concurrent.locks.ReentrantLock)
 
 (defn make-smart-array [t sz]
@@ -88,5 +98,11 @@
             (finally (.unlock lk))))))))
 
 (def S (make-smart-array Integer/TYPE 8))
-(pummel S)
-(seq S)
+
+(comment
+  (pummel S)
+  ;;=> nil
+  
+  (seq S)
+  ;;=> (100 100 100 100 100 100 100 100)
+  )

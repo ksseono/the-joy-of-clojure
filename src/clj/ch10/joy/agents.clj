@@ -1,5 +1,4 @@
 (ns joy.agents
-  "section 10.3"
   (:use [joy.mutation :only [dothreads!]]))
 
 (def log-agent (agent 0))
@@ -8,6 +7,9 @@
   (println msg-id ":" message)
   (inc msg-id))
 
+;;
+;; Listing 10.5
+;;
 (defn do-step [channel message]
   (Thread/sleep 1)
   (send-off log-agent do-log (str channel message)))
@@ -23,12 +25,21 @@
   (dothreads! #(three-step "beta"))
   (dothreads! #(three-step "omega")))
 
-(defn handle-log-error [the-agent the-err]
-  (println "An action sent to the log-agent threw " the-err))
+(comment
+  (all-together-now)
+  ;; 0 : beta ready to begin (step 0)
+  ;; 1 : alpha ready to begin (step 0)
+  ;; 2 : omega ready to begin (step 0)
+  ;; 3 : beta warming up (step 1)
+  ;; 4 : alpha warming up (step 1)
+  ;; 5 : omega warming up (step 1)
+  ;; 6 : beta really getting going now (step 2)
+  ;; 7 : alpha really getting going now (step 2)
+  ;; 8 : omega really getting going now (step 2)
+  ;; 9 : alpha done! (step 3)
+  ;; 10 : omega done! (step 3)
+  ;; 11 : beta done! (step 3)
 
-(defn exercise-agents [send-fn]
-  (let [agents (map #(agent %) (range 10))]
-    (doseq [a agents]
-      (send-fn a (fn [_] (Thread/sleep 1000))))
-    (doseq [a agents]
-      (await a))))
+  @log-agent
+  ;; 12
+  )

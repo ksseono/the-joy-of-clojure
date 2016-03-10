@@ -1,8 +1,29 @@
 (ns joy.atoms
-  "section 10.4"
   (:use [joy.mutation :only [dothreads!]]))
 
-(def ^:dynamic *time* (atom 0))
-(defn tick [] (swap! *time* inc))
-(dothreads! tick :threads 1000 :times 100)
-@*time*
+;;
+;; Listing 10.6
+;;
+(defn manipulable-memoize [function]
+  (let [cache (atom {})]
+    (with-meta
+      (fn [& args]
+        (or (second (find @cache args))
+            (let [ret (apply function args)]
+              (swap! cache assoc args ret)
+              ret)))
+      {:cache cache})))
+
+(def slowly (fn [x] (Thread/sleep 1000) x))
+(def sometimes-slowly (manipulable-memoize slowly))
+
+(comment
+  (time [(slowly 9) (slowly 9)])
+  ;; "Elapsed time: 2007.40908 msecs"
+  ;;=> [9 9]
+
+  (time [(sometimes-slowly 108) (sometimes-slowly 108)])
+  ;; "Elapsed time: 1007.108576 msecs"
+  ;; [108 108]
+  )
+
