@@ -4,11 +4,11 @@
   :license {:name "Eclipse Public License"
             :url  "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.8.0"]
-                 [org.clojure/clojurescript "1.7.48"]
+                 [org.clojure/clojurescript "1.7.228"]
                  [org.clojure/core.unify "0.5.6"]
                  [org.clojure/core.logic "0.8.10"]
-                 [com.cemerick/piggieback "0.2.1"]
-                 [criterium "0.4.3"]]
+                 [com.cemerick/piggieback "0.2.2-SNAPSHOT"]
+                 [criterium "0.4.4"]]
   :source-paths ["src/clj/ch01" "src/clj/ch03" "src/clj/ch04" "src/clj/ch05"
                  "src/clj/ch06" "src/clj/ch07" "src/clj/ch08" "src/clj/ch09"
                  "src/clj/ch10" "src/clj/ch11" "src/clj/ch12" "src/clj/ch13"
