@@ -1,5 +1,4 @@
 (ns joy.promises
-  "section 11.2"
   (:require [joy.mutation :refer (dothreads!)])
   (:require [joy.futures :refer (feed-children)]))
 
@@ -7,16 +6,24 @@
 (def y (promise))
 (def z (promise))
 
-(dothreads! #(deliver z (+ @x @y)))
+(comment
+  (dothreads! #(deliver z (+ @x @y)))
 
-(dothreads!
-  #(do (Thread/sleep 2000) (deliver x 52)))
+  (dothreads!
+   #(do (Thread/sleep 2000) (deliver x 52)))
 
-(dothreads!
-  #(do (Thread/sleep 4000) (deliver y 86)))
+  (dothreads!
+   #(do (Thread/sleep 4000) (deliver y 86)))
 
-(time @z)
+  (time @z)
+  ;; "Elapsed time: 3115.154625 msecs"
+  ;; 138
+  )
 
+
+;;
+;; Listing 11.8
+;;
 (defmacro with-promises [[n tasks _ as] & body]
   (when as
     `(let [tasks# ~tasks
@@ -31,6 +38,10 @@
              ~as promises#]
          ~@body))))
 
+
+;;
+;; Listing 11.9
+;;
 (defrecord TestRun [run passed failed])
 
 (defn pass [] true)
@@ -46,7 +57,10 @@
             {:run 1 :passed 1}
             {:run 1 :failed 1}))))))
 
-(run-tests pass fail fail fail pass)
+(comment
+  (run-tests pass fail fail fail pass)
+  ;;=> #joy.promises.TestRun{:run 5, :passed 2, :failed 3}
+  )
 
 
 (defn feed-items [k feed]
@@ -55,15 +69,23 @@
                  (feed-children feed))]
       (-> item :content first :content))))
 
-(feed-items
-  count
-  "http://blog.fogus.me/feed/")
+(comment
+  (feed-items
+   count
+   "http://blog.fogus.me/feed/")
+  ;;=> 5
 
-(let [p (promise)]
-  (feed-items #(deliver p (count %))
-    "http://blog.fogus.me/feed/")
-  @p)
+  (let [p (promise)]
+    (feed-items #(deliver p (count %))
+       "http://blog.fogus.me/feed/")
+    @p)
+  ;;;=> 5
+  )
 
+
+;;
+;; Listing 11.10
+;;
 (defn cps->fn [f k]
   (fn [& args]
     (let [p (promise)]
@@ -72,25 +94,7 @@
 
 (def count-items (cps->fn feed-items count))
 
-(count-items "http://blog.fogus.me/feed/")
-
-
-(def kant (promise))
-(def hume (promise))
-
-(dothreads!
-  #(do (println "Kant has" @kant) (deliver hume :thinking)))
-
-(dothreads!
-  #(do (println "Hume is" @hume) (deliver kant :fork)))
-
-
-
-
-
-
-
-
-
-
-
+(comment
+  (count-items "http://blog.fogus.me/feed/")
+  ;;=> 5
+  )
