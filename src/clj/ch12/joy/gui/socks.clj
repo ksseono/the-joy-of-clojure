@@ -1,3 +1,6 @@
+;;
+;; Listing 12.11
+;;
 (ns joy.gui.socks
   (:import
    (joy.gui DynaFrame)
@@ -26,6 +29,10 @@
     (.setLeftComponent top)
     (.setRightComponent bottom)))
 
+
+;;
+;; Listing 12.12
+;;
 (defn button [text f]
   (doto (JButton. text)
     (.addActionListener
@@ -44,19 +51,12 @@
   ([frame msg]
    (javax.swing.JOptionPane/showMessageDialog frame msg)))
 
-(def gui (joy.gui.DynaFrame. "4th"))
-
 (comment
-  (.display gui (doto (javax.swing.JPanel.)
-                  (.add (javax.swing.JLabel. "Charlemagne and Pippin"))))
-  
-  (.display gui (doto (javax.swing.JPanel.)
-                  (.add (javax.swing.JLabel. "Mater semper certa est.")))))
-
-(.display gui
-  (splitter
-    (button "Procrastinate" #(alert "Eat Cheetos"))
-    (button "Move It" #(alert "Couch to 5k"))))
+  (.display gui
+            (splitter
+             (button "Procrastinate" #(alert "Eat Cheetos"))
+             (button "Move It" #(alert "Couch to 5k"))))
+  )
 
 (defn grid [x y f]
   (let [g (doto (JPanel.)
@@ -66,21 +66,25 @@
         (.add g (f))))
     g))
 
-(.display gui
-  (let [g1 (txt 10 "Charlemagne")
-        g2 (txt 10 "Pippin")
-        r (txt 3 "10")
-        d (txt 3 "5")]
-    (splitter
-      (stack
-        (shelf (label "Player 1") g1)
-        (shelf (label "Player 2") g2)
-        (shelf (label "Rounds ") r
-          (label "Delay  ") d))
-      (stack
-        (grid 21 11 #(label "-"))
-        (button "Go!" #(alert (str (.getText g1) " vs. "
-                                (.getText g2) " for "
-                                (.getText r) " rounds, every "
-                                (.getText d) " seconds. ")))))))
-
+;;
+;; Listing 12.13
+;;
+(comment
+  (.display gui
+            (let [g1 (txt 10 "Charlemagne")
+                  g2 (txt 10 "Pippin")
+                  r (txt 3 "10")
+                  d (txt 3 "5")]
+              (splitter
+               (stack
+                (shelf (label "Player 1") g1)
+                (shelf (label "Player 2") g2)
+                (shelf (label "Rounds ") r
+                       (label "Delay  ") d))
+               (stack
+                (grid 21 11 #(label "-"))
+                (button "Go!" #(alert (str (.getText g1) " vs. "
+                                           (.getText g2) " for "
+                                           (.getText r) " rounds, every "
+                                           (.getText d) " seconds. ")))))))
+  )
