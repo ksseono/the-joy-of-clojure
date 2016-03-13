@@ -1,3 +1,6 @@
+;;
+;; Listing 14.2
+;;
 (ns joy.event-sourcing
   (:require [joy.generators :refer [rand-map]]))
 
@@ -5,10 +8,17 @@
   (boolean (:result event)))
 
 (comment
-  (valid? {}) ;;=> false
-  (valid? {:result 42}) ;;=> true
+  (valid? {})
+  ;;=> false
+  
+  (valid? {:result 42})
+  ;;=> true
   )
 
+
+;;
+;; Listing 14.3
+;;
 (defn effect [{:keys [ab h] :or {ab 0, h 0}}
               event]
   (let [ab (inc ab)
@@ -20,8 +30,16 @@
 
 (comment
   (effect {} {:result :hit})
-  (effect {:ab 599 :h 180} {:result :out}))
+  ;;=> {:h 1, :avg 1.0, :ab 1}
+  
+  (effect {:ab 599 :h 180} {:result :out})
+  ;;=> {:h 180, :avg 0.3, :ab 600}
+  )
 
+
+;;
+;; Listing 14.4
+;;
 (defn apply-effect [state event]
   (if (valid? event)
     (effect state event)
@@ -29,8 +47,14 @@
 
 (comment
   (apply-effect {:ab 600 :h 180 :avg 0.3}
-    {:result :hit}))
+                {:result :hit})
+  ;;=> {:h 181, :avg 0.3011647254575707, :ab 601}
+  )
 
+
+;;
+;; Listing 14.5
+;;
 (def effect-all #(reduce apply-effect %1 %2))
 
 (comment
@@ -38,7 +62,9 @@
     [{:result :hit}
      {:result :out}
      {:result :hit}
-     {:result :out}]))
+     {:result :out}])
+  ;;=> {:h 2, :avg 0.5, :ab 4}
+  )
 
 (def events (repeatedly 100
               (fn []
@@ -50,8 +76,18 @@
 
 (comment
   (effect-all {} events)
-  (effect-all {} (take 50 events)))
+  ;;=> {:h 33, :avg 0.33, :ab 100}
+  
+  (effect-all {} (take 50 events))
+  ;;=> {:h 14, :avg 0.28, :ab 50}
+  )
 
 
 (def fx-timeline #(reductions apply-effect %1 %2))
-(fx-timeline {} (take 3 events))
+(comment
+  (fx-timeline {} (take 3 events))
+  ;;=> ({}
+  ;;    {:ab 1, :h 0, :avg 0.0}
+  ;;    {:ab 2, :h 0, :avg 0.0}
+  ;;    {:ab 3, :h 1, :avg 0.3333333})
+  )
