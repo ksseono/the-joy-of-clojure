@@ -1,3 +1,6 @@
+;;
+;; Listing 13.6
+;;
 (ns joy.music
   (:require-macros [joy.macro-tunes :as mtunes]))
 
@@ -56,12 +59,16 @@
       (connect-to compressor (.-destination ctx)))
     (js/alert "Sorry, this browser doesn't seem to support AudioContext")))
 
-;; test
-(comment
-  (play! woo [{:cent 1100, :duration 1, :delay 0.0, :volume 0.4}
-              {:cent 1400, :duration 1, :delay 0.2, :volume 0.4}
-              {:cent 1800, :duration 1, :delay 0.4, :volume 0.4}]))
-  
+;; 1. lein cljsbuild once
+;; 2. open music.html on your browser
+(play! woo [{:cent 1100, :duration 1, :delay 0.0, :volume 0.4}
+            {:cent 1400, :duration 1, :delay 0.2, :volume 0.4}
+            {:cent 1800, :duration 1, :delay 0.4, :volume 0.4}])
+
+
+;;
+;; Listing 13.7
+;;
 (defn pair-to-note
   "Return a note map for the given tone and duration"
   [[tone duration]]

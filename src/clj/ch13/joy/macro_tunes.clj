@@ -7,6 +7,10 @@
    :duration duration
    :volume 0.4})
 
+
+;;
+;; Listing 13.9
+;;
 (defn consecutive-notes
   "Take a sequence of note maps that have no :delay, and return them with correct :delays
    so that they will play in the order given."
@@ -17,6 +21,10 @@
     {:delay 0 :duration 0}
     notes))
 
+
+;;
+;; Listing 13.10
+;;
 (defn notes [tone-pairs]
   "Returns a sequence of note maps at moderate tempo for the given sequence of tone-pairs."
   (let [bpm 360

@@ -10,6 +10,9 @@
 (def code-data (read-string code-string))
 (def ast (ana/analyze (ana/empty-env) code-data))
 
+;;
+;; Listing 13.3
+;;
 (defn print-ast [ast]
   (pprint
     (prewalk
@@ -19,6 +22,43 @@
           x))
       ast)))
 
+(comment
+  (print-ast ast)
+  ;; {:op :def,
+  ;;  :form
+  ;;  (def hello (cljs.core/fn ([x] (js/alert (pr-str 'greetings x))))),
+  ;;  :name cljs.user/hello,
+  ;;  :children
+  ;;  [{:op :fn,
+  ;;    :form (fn* ([x] (js/alert (pr-str 'greetings x)))),
+  ;;    :name {:name hello},
+  ;;    :children
+  ;;    [{:op :do,
+  ;;      :form (do (js/alert (pr-str 'greetings x))),
+  ;;      :children
+  ;;      [{:op :invoke,
+  ;;        :form (js/alert (pr-str 'greetings x)),
+  ;;        :children
+  ;;        [{:op :var, :form js/alert}
+  ;;         {:op :invoke,
+  ;;          :form (pr-str 'greetings x),
+  ;;          :children
+  ;;          [{:op :var, :form pr-str}
+  ;;           {:op :constant, :form greetings}
+  ;;           {:op :var, :form x}]}]}]}]}]}
+
+  (comp/emit ast)
+  ;; cljs.user.hello = (function cljs$user$hello(x){
+  ;; return alert(cljs.user.pr_str.call(null,
+  ;;   new cljs.core.Symbol(null,"greetings","greetings",
+  ;;                        -547008995,null),x));
+  ;; });
+  ;;=> nil
+  )
+
+;;
+;; Listing 13.8
+;;
 (defn read-file
   "Read the contents of filename as a sequence of Clojure values."
   [filename]
@@ -40,14 +80,21 @@
 
 (comment
   (count (file-ast "src/cljs/joy/music.cljs"))
-  (first (file-ast "src/cljs/joy/music.cljs")))
+  ;;=> 13
+  
+  (first (file-ast "src/cljs/joy/music.cljs"))
+  ;;=> {:use-macros nil, :excludes #{}, :name joy.music, ...}
+  )
 
 (defn flatten-ast [ast]
   (mapcat #(tree-seq :children :children %) ast))
 
 (def flat-ast (flatten-ast (file-ast "src/cljs/joy/music.cljs")))
 
-(comment (count flat-ast))
+(comment
+  (count flat-ast)
+  ;;=> 557
+  )
 
 (defn get-interop-used
   "Return a set of symbols representing the method and field names
@@ -55,15 +102,16 @@
   [flat-ast]
   (set (keep #(some % [:method :field]) flat-ast)))
 
-(comment (get-interop-used flat-ast))
+(comment
+  (get-interop-used flat-ast)
+  ;;=> #{destination createDynamicsCompressor createOscillator createGain
+  ;;     linearRampToValueAtTime connect value frequency start
+  ;;     cljs$core$ISeq$ AudioContext currentTime stop
+  ;;     cljs$lang$protocol_mask$partition0$ detune gain webkitAudioContext}
+  )
 
 (defn externs-for-interop [syms]
   (apply str
     "var DummyClass={};\n"
     (map #(str "DummyClass." % "=function(){};\n")
       syms)))
-
-
-
-
-
