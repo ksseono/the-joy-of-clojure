@@ -4,6 +4,7 @@
   (:require [clojure.core.logic.fd :as fd]))
 
 (pldb/db-rel orbits orbital body)
+(pldb/db-rel stars star)
 
 (def facts
   (pldb/db
@@ -28,7 +29,6 @@
     [stars :alpha-centauri]))
 
 
-
 ;;
 ;; Listing 16.8
 ;;
@@ -38,8 +38,6 @@
       (orbits orbital body)
       (logic/== q orbital))))
 ;;=> (:saturn :earth :uranus :neptune :mars :jupiter :venus :mercury)
-
-(pldb/db-rel stars star)
 
 
 ;;
@@ -78,6 +76,7 @@
   (pldb/with-db facts
     (logic/run* [q]
       (planeto :Bb)))
+  ;;=> (_0)
   )
 
 ;;
@@ -114,5 +113,3 @@
       (orbits :leda :jupiter)))
   ;;=> ()
   )
-
-

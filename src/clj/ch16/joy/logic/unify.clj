@@ -22,6 +22,7 @@
   ;;=> false
   )
 
+
 ;;
 ;; Listing 16.4
 ;;
@@ -45,7 +46,9 @@
   (->> {}
     (satisfy1 '?x '?y)
     (satisfy1 '?x 1))
+  ;;=> {?x ?y, ?y 1}
   )
+
 
 ;;
 ;; Listing 16.5
@@ -127,6 +130,7 @@
   (subst page '{?title "Hi!"})
   ;;=> [:html [:head [:title "Hi!"]] [:body [:h1 "Hi!"]]]
   )
+
 
 ;;
 ;; Listin 16.7
