@@ -25,7 +25,9 @@
 
 (comment
   (def cache (BasicCache. {}))
-  (lookup (miss cache '(servo) :robot) '(servo)))
+  (lookup (miss cache '(servo) :robot) '(servo))
+  ;;=> :robot
+  )
 
 (defn through [cache f item]
   (if (has? cache item)
@@ -57,12 +59,18 @@
           @(lookup cs args)))
       {:cache cache})))
 
-(def slowly (fn [x] (Thread/sleep 3000) x))
-(def sometimes-slowly (memoization-impl
-                        (PluggableMemoization.
+(comment
+  (def slowly (fn [x] (Thread/sleep 3000) x))
+  (def sometimes-slowly (memoization-impl
+                         (PluggableMemoization.
                           slowly
                           (BasicCache. {}))))
 
-(comment
   (time [(sometimes-slowly 108) (sometimes-slowly 108)])
-  (time [(sometimes-slowly 108) (sometimes-slowly 108)]))
+  ;; "Elapsed time: 3001.611 msecs"
+  ;;=> [108 108]
+  
+  (time [(sometimes-slowly 108) (sometimes-slowly 108)])
+  ;; "Elapsed time: 0.049 msecs"
+  ;;=> [108 108]  
+  )

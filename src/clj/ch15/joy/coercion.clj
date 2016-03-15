@@ -10,7 +10,16 @@
       (recur (dec x) (* x acc)))))
 
 (comment
-  (time (dotimes [_ 1e5] (factorial-a 20))))
+  (factorial-a 10)
+  ;;=> 3628800
+
+  (factorial-a 20)
+  ;;=> 2432902008176640000   
+  
+  (time (dotimes [_ 1e5] (factorial-a 20)))
+  ;; "Elapsed time: 172.914384 msecs"
+  )
+
 
 ;;
 ;; Listing 15.6
@@ -22,7 +31,10 @@
       (recur (dec x) (* x acc)))))
 
 (comment
-  (time (dotimes [_ 1e5] (factorial-b 20))))
+  (time (dotimes [_ 1e5] (factorial-b 20)))
+  ;; "Elapsed time: 44.687297 msecs"
+  )
+
 
 ;;
 ;; Listing 15.7
@@ -34,7 +46,10 @@
       (recur (dec x) (* x acc)))))
 
 (comment
-  (time (dotimes [_ 1e5] (factorial-c 20))))
+  (time (dotimes [_ 1e5] (factorial-c 20)))
+  ;; "Elapsed time: 43.797143 msecs"
+  )
+
 
 ;;
 ;; Listing 15.8
@@ -50,7 +65,16 @@
 (set! *unchecked-math* false)
 
 (comment
-  (time (dotimes [_ 1e5] (factorial-d 20))))
+  (time (dotimes [_ 1e5] (factorial-d 20)))
+  ;; "Elapsed time: 15.674197 msecs"
+
+  (factorial-d 21)
+  ;;=> -4249290049419214848
+
+  (factorial-a 21)
+  ;; ArithmeticException integer overflow
+  )
+
 
 ;;
 ;; Listing 15.9
@@ -63,10 +87,21 @@
 
 (comment
   (factorial-e 10.0)
+  ;;=> 3628800.0
+  
   (factorial-e 20.0)
+  ;;=> 2.43290200817664E18
+  
   (factorial-e 30.0)
+  ;;=> 2.652528598121911E32
+  
   (factorial-e 171.0)
-  (time (dotimes [_ 1e5] (factorial-e 20.0))))
+  ;;=> Infinity
+  
+  (time (dotimes [_ 1e5] (factorial-e 20.0)))
+  ;; "Elapsed time: 15.678149 msecs"
+  )
+
 
 ;;
 ;; Listing 15.10
@@ -79,6 +114,14 @@
 
 (comment
   (factorial-f 20)
+  ;;=> 2432902008176640000
+  
   (factorial-f 30)
+  ;;=> 265252859812191058636308480000000N
+  
   (factorial-f 171)
-  (time (dotimes [_ 1e5] (factorial-f 20))))
+  ;;=> 124101... this goes on a while ...0000N
+  
+  (time (dotimes [_ 1e5] (factorial-f 20)))
+  ;; "Elapsed time: 101.7621 msecs"
+  )
