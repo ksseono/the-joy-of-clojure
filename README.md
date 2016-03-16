@@ -1,9 +1,16 @@
-## [The Joy of Clojure](http://www.joyofclojure.com) (한글 역서: 클로저 프로그래밍의 즐거움)
+## [The Joy of Clojure](http://www.joyofclojure.com)
 
-The source code is adjusted to Korean translation version of the book, and rearraged from [joyofclojure/book-source][l3] by [Seonho Kim][l4]
+The source code is adjusted to Korean translation version of the book, and rearraged from [joyofclojure/book-source][l1] by [Seonho Kim][l2]
 
-[l3]: https://github.com/joyofclojure/book-source
-[l4]: http://seonhokim.net
+* 한글 역서: [클로저 프로그래밍의 즐거움 (비제이퍼블릭)](l3)
+
+* 오탈자 수정 위키 - https://github.com/ksseono/the-joy-of-clojure/wiki
+
+[l1]: https://github.com/joyofclojure/book-source
+[l2]: http://seonhokim.net
+[l3]: http://bjpublic.tistory.com/245
+
+
 
 
 ## book cover
