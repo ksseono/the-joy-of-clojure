@@ -1,4 +1,4 @@
-(defproject joyofclojure-2nd-shkim "0.1"
+(defproject joyofclojure-2nd-shkim "1.0"
   :description "The Joy of Clojure 2nd"
   :url "http://www.joyfoclojure.com"
   :license {:name "Eclipse Public License"
