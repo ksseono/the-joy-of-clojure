@@ -1,8 +1,8 @@
-(ns joy.cells)
-
 ;;
 ;; Listing 17.7
 ;;
+(ns joy.cells)
+
 (defmacro defformula [nm bindings & formula]
   `(let ~bindings
      (let [formula# (agent ~@formula)
@@ -13,6 +13,7 @@
          (add-watch r# :update-formula update-fn#))
 
        (def ~nm formula#))))
+
 
 ;;
 ;; Listing 17.8
@@ -32,5 +33,3 @@
   @avg
   ;;=> 0.33
   )
-
-

@@ -1,5 +1,4 @@
 (ns joy.sql
-  (:require [clojure.set :as ra])
   (:use [clojure.string :as str :only []]))
 
 (def artists
@@ -16,6 +15,11 @@
     {:genre-id 3 :genre-name "Prog"}
     {:genre-id 4 :genre-name "Drone"}})
 
+
+;;
+;; Listing 17.1
+;;
+(require '[clojure.set :as ra])
 (def ALL identity)
 
 (defn ids [& ids]
@@ -23,18 +27,24 @@
 
 (comment
   (ra/select ALL genres)
-  ;;=> #{{:genre-id 4, :genre-name "Drone"} {:genre-id 2, :genre-name "Zeuhl"} {:genre-id 3, :genre-name "Prog"} {:genre-id 1, :genre-name "Dubstep"}}
+  ;;=> #{{:genre-id 4, :genre-name "Drone"}
+  ;;     {:genre-id 2, :genre-name "Zeuhl"}
+  ;;     {:genre-id 3, :genre-name "Prog"}
+  ;;     {:genre-id 1, :genre-name "Dubstep"}}
 
   (ra/select (fn [m] (#{1 3} (:genre-id m))) genres)
-  ;;=> #{{:genre-id 3, :genre-name "Prog"} {:genre-id 1, :genre-name "Dubstep"}}
+  ;;=> #{{:genre-id 3, :genre-name "Prog"}
+  ;;     {:genre-id 1, :genre-name "Dubstep"}}
 
   (ra/select (ids 1 3) genres)
-  ;;=> #{{:genre-id 3, :genre-name "Prog"} {:genre-id 1, :genre-name "Dubstep"}}
+  ;;=> #{{:genre-id 3, :genre-name "Prog"}
+  ;;     {:genre-id 1, :genre-name "Dubstep"}}
 
   (take 2 (ra/select ALL (ra/join artists genres)))
-  ;;=> ({:genre-name "Zeuhl", :genre-id 2, :artist "Magma"} {:genre-name "Prog", :genre-id 3, :artist "Can"})
-
+  ;;=> ({:genre-name "Zeuhl", :genre-id 2, :artist "Magma"}
+  ;;    {:genre-name "Prog", :genre-id 3, :artist "Can"})
   )
+
 
 ;;
 ;; Listing 17.2
@@ -107,7 +117,6 @@
   ;;=> "SELECT a, b, c FROM X LEFT JOIN Y ON (X.a = Y.b) WHERE ((a < 5) AND (b < ?))"
   )
 
-
 (declare apply-syntax)
 (def ^:dynamic *clause-map*
   {'SELECT (partial process-select-clause apply-syntax)
@@ -115,11 +124,13 @@
    'LEFT-JOIN (partial process-left-join-clause shuffle-expr)
    'WHERE (partial process-where-clause shuffle-expr)})
 
+
 ;;
 ;; Listing 17.3
 ;;
 (defn apply-syntax [[op & args]]
   (apply (get *clause-map* op) args))
+
 
 ;;
 ;; Listing 17.4
@@ -131,24 +142,16 @@
                                 (= (first n) `unquote))]
                     (second n)))})
 
-(comment
-  (defn example-query [max]
+(defn example-query [max]
    (SELECT [a b c]
      (FROM X
        (LEFT-JOIN Y :ON (= X.a Y.b)))
      (WHERE (AND (< a 5) (< b ~max)))))
 
+(comment
   (example-query 9)
+  ;;=> {:bindings [9],
+  ;;    :query "SELECT a, b, c
+  ;;            FROM X LEFT JOIN Y ON (X.a = Y.b)
+  ;;            WHERE ((a < 5) AND (b < ?))"}
   )
-
-
-
-
-
-
-
-
-
-
-
-

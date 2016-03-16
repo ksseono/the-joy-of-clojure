@@ -8,8 +8,11 @@
 (defn describe-system [name cfg]
   [(:type cfg) (:fidelity cfg)])
 
-(describe-system :pump {:type :feeder, :descr "Feeder system"})
-;;=> [:feeder nil]
+(comment
+  (describe-system :pump {:type :feeder, :descr "Feeder system"})
+  ;;=> [:feeder nil]
+  )
+
 
 ;;
 ;; Listing 17.9
@@ -26,8 +29,10 @@
 
 (comment
   (construct-subsystems (:systems config))
+  ;;=> ({:name :pump, :type :feeder}
+  ;;    {:name :sim1, :type :sim}
+  ;;    {:name :sim2, :type :sim})
   )
-
 
 (defmethod construct [:feeder nil]
   [_ cfg]
@@ -35,10 +40,14 @@
 
 (comment
   (construct-subsystems (:systems config))
+  ;; ("Feeder system"
+  ;;  {:name :sim1, :type :sim}
+  ;;  {:name :sim2, :type :sim})
   )
 
 (defrecord LowFiSim [name])
 (defrecord HiFiSim [name threads])
+
 
 ;;
 ;; Listing 17.10
@@ -51,4 +60,9 @@
   [name cfg]
   (->HiFiSim name (:threads cfg)))
 
-(construct-subsystems (:systems config))
+(comment
+  (construct-subsystems (:systems config))
+  ;; ("Feeder system"
+  ;;  {:name :sim1}
+  ;;  {:name :sim2, :threads 2})
+  )

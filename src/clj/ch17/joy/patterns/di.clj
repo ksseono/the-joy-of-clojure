@@ -9,6 +9,7 @@
   ;;=> #joy.patterns.abstract_factory.LowFiSim{:name :lofi}
   )
 
+
 ;;
 ;; Listing 17.11
 ;;
@@ -19,6 +20,7 @@
 (defprotocol Sim
   (handle [sim msg]))
 
+
 ;;
 ;; Listing 17.12
 ;;
@@ -26,6 +28,7 @@
   (let [sys (factory/construct name config)]
     (start! sys)
     sys))
+
 
 ;;
 ;; Listing 17.13
@@ -50,6 +53,7 @@
   ;;=> #joy.patterns.abstract_factory.LowFiSim{:name :sim1}
 
   (handle (build-system :sim1 lofi) {:weight 42})
+  ;;=> 131.88
   )
 
 
@@ -77,8 +81,9 @@
   ;;=> 131.9468914507713160154292M
   )
 
+
 ;;
-;; Listing 17.14
+;; Listing 17.15
 ;;
 (def excellent (promise))
 
@@ -102,4 +107,5 @@
   ;;=> true
 
   @excellent
+  ;;=> 131.9468914507713160154292M
   )

@@ -1,11 +1,10 @@
+;;
+;; Listing 17.16
+;;
 (ns joy.patterns.mock
   (:require [joy.patterns.abstract-factory :as factory]
             [joy.patterns.di :as di]))
 
-
-;;
-;; Listing 17.16
-;;
 (defrecord MockSim [name])
 
 (def starts (atom 0))
@@ -26,12 +25,10 @@
   di/Sim
   (handle [_ _] 42))
 
+
 ;;
 ;; Listing 17.18
 ;;
 (defmethod factory/construct [:mock nil]
   [nom _]
   (MockSim. nom))
-
-
-

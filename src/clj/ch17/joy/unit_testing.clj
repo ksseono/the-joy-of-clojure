@@ -20,7 +20,9 @@
   ;;=> 3
   )
 
-
+;;
+;; Listing 17.6
+;;
 (require '[clojure.test :refer (deftest testing is)])
 
 (deftest feed-tests
@@ -46,6 +48,7 @@
   ;; 1 failures, 0 errors.
   ;; {:test 1, :pass 1, :fail 1, :error 0, :type :summary}
   )
+
 
 (require '[joy.contracts :refer (contract)])
 (def sqr (partial

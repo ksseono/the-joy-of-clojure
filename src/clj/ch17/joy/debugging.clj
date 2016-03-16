@@ -52,7 +52,7 @@
 (comment
   (traverse DB visit)
   ; orangutan
-  ; java.lang.IllegalArgumentException
+  ; Exception Spot must be 'dealt with'
   )
 
 (defmulti handle-weird (fn [{[name] :content}] name))
@@ -66,19 +66,20 @@
 (comment
   (binding [handle-weird-animal handle-weird]
     (traverse DB visit))
-  ; orangutan
-  ; Transporting Spot to the circus.
-  ; lion
-  ; Signing Lopshire to a book deal.
+  ;; orangutan
+  ;; Transporting Spot to the circus.
+  ;; lion
+  ;; Signing Lopshire to a book deal.
 
   (def _ (future
            (binding [handle-weird-animal #(println (:content %))]
              (traverse DB visit))))
-  ; orangutan
-  ; [Spot]
-  ; lion
-  ; [Lopshire]
+  ;; orangutan
+  ;; [Spot]
+  ;; lion
+  ;; [Lopshire]
   )
+
 
 ;;
 ;; Listing 17.23
@@ -111,13 +112,14 @@
 
 (comment
   (local-context)
-  ;=> {}
+  ;;=> {}
 
   (let [a 1, b 2, c 3]
     (let [b 200]
       (local-context)))
-  ;=> {a 1, b 200, c 3}
+  ;;=> {a 1, b 200, c 3}
   )
+
 
 ;;
 ;; Listing 17.25
@@ -134,16 +136,16 @@
   (div 10 0)
 
   debug=> n
-  ;=> 10
+  ;;=> 10
 
   debug=> d
-  ;=> 0
+  ;;=> 0
 
   debug=> (local-context)
-  ;=> {n 10, d 0}
+  ;;=> {n 10, d 0}
 
   debug=> ::tl
-  ; ArithmeticException Divide by zero
+  ;; ArithmeticException Divide by zero
   )
 
 
@@ -160,21 +162,22 @@
   (keys-apply inc [:a :b] {:a 1, :b 2, :c 3})
 
   debug=> only
-  ; java.lang.RuntimeException: Unable to resolve symbol: only in this context
+  ;; java.lang.RuntimeException: Unable to resolve symbol: only in this context
 
   debug=> ks
-  ;=> [:a :b]
+  ;;=> [:a :b]
 
   debug=> m
-  ;=> {:a 1, :b 2, :c 3}
+  ;;=> {:a 1, :b 2, :c 3}
 
   debug=> ::tl
   debug=> only
-  ;=> {a 1, :b 2}
+  ;;=> {a 1, :b 2}
 
   debug=> ::tl
-  ;=> {:a 2, :b 3}
+  ;;=> {:a 2, :b 3}
   )
+
 
 ;;
 ;; Listing 17.27
@@ -189,30 +192,21 @@
   (awhen [1 2 3] (it 2))
 
   debug=> it
-  ; java.lang.RuntimeException: Unable to resolve symbol: it in this context
+  ;; java.lang.RuntimeException: Unable to resolve symbol: it in this context
   
   debug=> expr
-  ;=> [1 2 3]
+  ;;=> [1 2 3]
 
   debug=> body
-  ;=> ((it 2))
+  ;;=> ((it 2))
 
   debug=> ::tl
   debug=> it
-  ;=> [1 2 3]
+  ;;=> [1 2 3]
 
   debug=> (it 1)
-  ;=>  2
+  ;;=>  2
 
   debug=> ::tl
-  ;=> 3
+  ;;=> 3
   )
-
-
-
-
-
-
-
-
-
