@@ -7,7 +7,7 @@
         :let [name (.getName meth)]
         :when (re-find #"Vis" name)]
     name)
-  ;=> ("setVisible" "isVisible")
+  ;;=> ("setVisible" "isVisible")
 )
 
 (.setVisible frame true)
