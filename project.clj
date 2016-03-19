@@ -1,6 +1,6 @@
-(defproject joyofclojure-2nd-shkim "1.0"
-  :description "The Joy of Clojure 2nd"
-  :url "http://www.joyfoclojure.com"
+(defproject ksseono/joc-2nd "1.0"
+  :description "Example sources for The Joy of Clojure(2nd edition)"
+  :url "https://github.com/ksseono/the-joy-of-clojure"
   :license {:name "Eclipse Public License"
             :url  "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.8.0"]

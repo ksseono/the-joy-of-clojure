@@ -16,3 +16,9 @@ The source code is adjusted to Korean translation version of the book, and rearr
 [l1]: https://github.com/joyofclojure/book-source
 [l2]: http://seonhokim.net
 [l3]: http://bjpublic.tistory.com/245
+
+## License
+Copyright © 2016. Seonho Kim.
+
+Orginal sources by Fobus and Houser in their book - https://github.com/joyofclojure/book-source, 
+Distributed under the [Eclipse Public License](http://www.eclipse.org/legal/epl-v10.html), the same as Clojure.
