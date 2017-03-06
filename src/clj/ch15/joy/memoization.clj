@@ -54,7 +54,7 @@
 (defn memoization-impl [cache-impl]
   (let [cache (atom cache-impl)]
     (with-meta
-      (fn [$ args]
+      (fn [& args]
         (let [cs (swap! cache through (.f cache-impl) args)]
           @(lookup cs args)))
       {:cache cache})))
