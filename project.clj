@@ -1,4 +1,4 @@
-(defproject ksseono/joc-2nd "1.0"
+(defproject ksseono/joc-2nd "1.0.1"
   :description "Example sources for The Joy of Clojure(2nd edition)"
   :url "https://github.com/ksseono/the-joy-of-clojure"
   :license {:name "Eclipse Public License"
