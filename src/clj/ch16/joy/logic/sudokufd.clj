@@ -6,9 +6,9 @@
 
 (defn rowify [board]
   (->> board
-    (partition 9)
-    (map vec)
-    vec))
+       (partition 9)
+       (map vec)
+       vec))
 
 (defn colify [rows]
   (apply map vector rows))
@@ -28,11 +28,11 @@
 
 (defn subgrid [rows]
   (partition 9
-    (for [row (range 0 9 3)
-          col (range 0 9 3)
-          x (range row (+ row 3))
-          y (range col (+ col 3))]
-      (get-in rows [x y]))))
+             (for [row (range 0 9 3)
+                   col (range 0 9 3)
+                   x (range row (+ row 3))
+                   y (range col (+ col 3))]
+               (get-in rows [x y]))))
 
 (comment
   (subgrid (rowify b1))
@@ -82,10 +82,10 @@
 
 (comment
   (-> b1
-    solve-logically
-    first
-    prep
-    print-board)
+      solve-logically
+      first
+      prep
+      print-board)
   ;; -------------------------------------
   ;; | 3   8   6 | 2   7   5 | 4   1   9 | 
   ;; | 4   7   9 | 8   1   6 | 2   3   5 | 

@@ -10,7 +10,7 @@
           - 6 - - - - 5 - 1
           - - - - 4 - - - 6
           - 4 - 7 - - - 2 -
-           - 2 - 6 - - - - 3])
+          - 2 - 6 - - - - 3])
 
 (def b2 '[5 3 - - 7 - - - -
           6 - - 1 9 5 - - -
@@ -24,7 +24,7 @@
 
 (defn prep [board]
   (map #(partition 3 %)
-    (partition 9 board)))
+       (partition 9 board)))
 
 
 ;;
@@ -39,9 +39,9 @@
         (doseq [cell (butlast subrow)]
           (print (str cell "   ")))
         (print (str (last subrow) " | ")))    
-    (println)
-    (when (zero? (mod (inc row) 3))
-      (println row-sep)))))
+      (println)
+      (when (zero? (mod (inc row) 3))
+        (println row-sep)))))
 
 (comment
   (-> b1 prep print-board)
@@ -69,7 +69,7 @@
 (defn column-for [board index sz]
   (let [col (mod index sz)]
     (map #(nth % col)
-      (rows board sz))))
+         (rows board sz))))
 
 (defn subgrid-for [board i]
   (let [rows (rows board 9)
@@ -81,13 +81,13 @@
 
 (defn numbers-present-for [board i]
   (set
-    (concat (row-for board i 9)
-      (column-for board i 9)
-      (subgrid-for board i))))
+   (concat (row-for board i 9)
+           (column-for board i 9)
+           (subgrid-for board i))))
 
 (defn possible-placements [board index]
   (set/difference #{1 2 3 4 5 6 7 8 9}
-    (numbers-present-for board index)))
+                  (numbers-present-for board index)))
 
 
 ;;
@@ -96,16 +96,16 @@
 (defn solve [board]
   (if-let [[i & _]
            (and (some '#{-} board)
-             (pos '#{-} board))]
+                (pos '#{-} board))]
     (flatten (map #(solve (assoc board i %))
-               (possible-placements board i)))
+                  (possible-placements board i)))
     board))
 
 (comment
   (-> b1
-    solve
-    prep
-    print-board)
+      solve
+      prep
+      print-board)
   ;; -------------------------------------
   ;; | 3   8   6 | 2   7   5 | 4   1   9 | 
   ;; | 4   7   9 | 8   1   6 | 2   3   5 | 
@@ -121,9 +121,9 @@
   ;; -------------------------------------
 
   (-> b2
-    solve
-    prep
-    print-board)
+      solve
+      prep
+      print-board)
   ;; -------------------------------------
   ;; | 5   3   4 | 6   7   8 | 9   1   2 | 
   ;; | 6   7   2 | 1   9   5 | 3   4   8 | 

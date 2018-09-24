@@ -14,10 +14,10 @@
 (comment
   (lvar? '?x)
   ;;=> true
-  
+
   (lvar? 'a)
   ;;=> false
-  
+
   (lvar? 2)
   ;;=> false
   )
@@ -39,7 +39,7 @@
 (comment
   (satisfy1 '?something 2 {})
   ;;=> {?something 2}
-  
+
   (satisfy1 2 '?something {})
   ;;=> {?something 2}
 

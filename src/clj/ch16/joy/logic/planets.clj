@@ -8,10 +8,10 @@
 
 (def facts
   (pldb/db
-    [orbits :mercury :sun]    
-    [orbits :venus :sun]    
-    [orbits :earth :sun]    
-    [orbits :mars :sun]    
+    [orbits :mercury :sun]
+    [orbits :venus :sun]
+    [orbits :earth :sun]
+    [orbits :mars :sun]
     [orbits :jupiter :sun]
     [orbits :saturn :sun]
     [orbits :uranus :sun]
